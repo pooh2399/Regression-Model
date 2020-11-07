@@ -11,10 +11,7 @@ automatic) and miles per gallon (MPG). The report set out to determine which
 transmission type produces a higher MPG. The `mtcars` dataset was used for this
 analysis. A t-test between automatic and manual transmission vehicles shows that
 manual transmission vehicles have a 7.245 greater MPG than automatic 
-transmission vehicles. After applying multiple linear regressions, analysis 
-showed that the manual transmission contributed only an improvement of 1.81 MPG.
-Other variables, weight, horsepower, and number of 
-cylinders contributed more significantly to the overall MPG of vehicles.
+transmission vehicles.
 
 #### Load Data
 Load the dataset and convert categorical variables to factors.
@@ -33,19 +30,19 @@ attach(mtcars)
 
 #### Exploratory Analysis
  Exploratory Box graph that compares Automatic and Manual 
-transmission MPG. The graph leads us to believe that there is a significant 
+transmission MPG. The graph leads us to believe that there is a  
 increase in MPG when for vehicles with a manual transmission vs automatic.
 
 ##### Statistical Inference
 T-Test transmission type and MPG
 ```{r}
-testResults <- t.test(mpg ~ am)
-testResults$p.value
+tResults <- t.test(mpg ~ am)
+tResults$p.value
 ```
 The T-Test rejects the null hypothesis that the difference between transmission
 types is 0.  
 ```{r}
-testResults$estimate
+tResults$estimate
 ```
 The difference estimate between the 2 transmissions is 7.24494 MPG in favor of 
 manual.
@@ -68,15 +65,12 @@ summary(sFit) # results hidden
 summary(sFit)$coeff # results hidden
 ```
 
-The new model has 4 variables (cylinders, horsepower, weight, transmission). The
-R-squared value of 0.8659 confirms that this model explains about 87% of the 
-variance in MPG. The p-values also are statistically significantly because they
+The p-values also are statistically significantly because they
 have a p-value less than 0.05. The coefficients conclude that increasing the 
 number of cylinders from 4 to 6 with decrease the MPG by 3.03.  Further 
 increasing the cylinders to 8 with decrease the MPG by 2.16.  Increasing the 
-horsepower is decreases MPG 3.21 for every 100 horsepower.  Weight decreases the
-MPG by 2.5 for each 1000 lbs increase. A Manual transmission improves the MPG by
-1.81.
+horsepower is decreases MPG 3.21 for every 100 horsepower.
+A Manual transmission improves the MPG by1.81.
 
 #### Residuals & Diagnostics
 Plot
@@ -86,11 +80,7 @@ The plots conclude:
 
 1. The randomness of the Residuals vs. Fitted plot supports the assumption of
 independence
-2. The points of the Normal Q-Q plot following closely to the line conclude that
-the distribution of residuals is normal
-3. The Scale-Location plot random distribution confirms the constant variance 
-assumption
-4. Since all points are within the 0.05 lines, the Residuals vs. Leverage 
+2. Since all points are within the 0.05 lines, the Residuals vs. Leverage 
 concludes that there are no outliers
 ```{r}
 sum((abs(dfbetas(sFit)))>1)
