@@ -53,9 +53,9 @@ manual.
 ##### Regression Analysis
 Fit the full model of the data
 ```{r results='hide'}
-fullModelFit <- lm(mpg ~ ., data = mtcars)
-summary(fullModelFit)  # results hidden
-summary(fullModelFit)$coeff  # results hidden
+FMT <- lm(mpg ~ ., data = mtcars)
+summary(FMT)  # results hidden
+summary(FMT)$coeff  # results hidden
 ```
 Since none of the coefficients have a p-value less than 0.05 we cannot conclude
 which variables are more statistically significant. 
@@ -63,9 +63,9 @@ which variables are more statistically significant.
 Backward selection to determine which variables are most statistically 
 significant
 ```{r results='hide'}
-stepFit <- step(fullModelFit)
-summary(stepFit) # results hidden
-summary(stepFit)$coeff # results hidden
+sFit <- step(FMT)
+summary(sFit) # results hidden
+summary(sFit)$coeff # results hidden
 ```
 
 The new model has 4 variables (cylinders, horsepower, weight, transmission). The
@@ -79,7 +79,7 @@ MPG by 2.5 for each 1000 lbs increase. A Manual transmission improves the MPG by
 1.81.
 
 #### Residuals & Diagnostics
-Residual Plot
+Plot
 **See Appendix Figure II**
 
 The plots conclude:
@@ -93,7 +93,7 @@ assumption
 4. Since all points are within the 0.05 lines, the Residuals vs. Leverage 
 concludes that there are no outliers
 ```{r}
-sum((abs(dfbetas(stepFit)))>1)
+sum((abs(dfbetas(sFit)))>1)
 ```
 
 #### Conclusion
@@ -114,5 +114,5 @@ number of cylinders are more statistically significant when determining MPG.
 #### II
 ```{r echo=FALSE}
 par(mfrow = c(2, 2))
-plot(stepFit)
+plot(sFit)
 ```
